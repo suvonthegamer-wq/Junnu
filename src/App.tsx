@@ -58,7 +58,7 @@ export default function App() {
     switch (atmosphere) {
       case 'morning': return 'bg-gradient-to-br from-orange-200/20 via-warm-gold/20 to-champagne/10';
       case 'afternoon': return 'bg-gradient-to-br from-blue-200/20 via-sky-100/20 to-white/10';
-      case 'evening': return 'bg-gradient-to-br from-rose- gold/20 via-blush-pink/20 to-midnight/10';
+      case 'evening': return 'bg-gradient-to-br from-rose-gold/20 via-blush-pink/20 to-midnight/10';
       case 'night': return 'bg-gradient-to-br from-indigo-950/40 via-midnight to-black/20';
       default: return '';
     }
@@ -109,7 +109,7 @@ export default function App() {
       {/* Main Pages */}
       <main className="relative z-10 w-full h-full min-h-screen">
         <AnimatePresence mode="wait">
-          <PageTransition key={currentPage}>
+          <PageTransition transitionKey={currentPage}>
             {currentPage === 0 && <WelcomePage onNext={() => setCurrentPage(1)} setIsPlaying={setIsPlaying} />}
             {currentPage === 1 && <UniversePage onNext={() => setCurrentPage(2)} />}
             {currentPage === 2 && <QuestPage onNext={() => setCurrentPage(3)} />}
@@ -123,16 +123,17 @@ export default function App() {
   );
 }
 
-function PageTransition({ children }: { children: React.ReactNode; key?: React.Key }) {
+function PageTransition({ children, transitionKey }: { children: React.ReactNode; transitionKey: any }) {
   const transitions = [
     { initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 1.1 } }, // Bloom
     { initial: { x: '100%' }, animate: { x: 0 }, exit: { x: '-100%' } }, // Petal sweep feel
     { initial: { opacity: 0, filter: 'blur(20px)' }, animate: { opacity: 1, filter: 'blur(0px)' }, exit: { opacity: 0, filter: 'blur(20px)' } }, // Dreamy
   ];
-  const t = transitions[Math.floor(Math.random() * transitions.length)];
+  const t = transitions[0]; 
 
   return (
     <motion.div
+      key={transitionKey}
       initial={t.initial}
       animate={t.animate}
       exit={t.exit}
@@ -219,7 +220,7 @@ function WhisperSystem() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-20">
-      <AnimatePresence shadow-none>
+      <AnimatePresence>
         {activeWhispers.map(w => (
           <motion.div
             key={w.id}
