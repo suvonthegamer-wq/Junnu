@@ -1,0 +1,6 @@
+{
+  "name": "Junita's World",
+  "description": "A romantic, interactive magical world created specifically for Junita, filled with love, affirmations, and interactive quests.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

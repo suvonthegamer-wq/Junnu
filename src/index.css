@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-soft-rose: #FFCDD2;
+  --color-blush-pink: #F8BBD0;
+  --color-dusty-mauve: #CE93D8;
+  --color-lavender: #EDE7F6;
+  --color-soft-lilac: #D1C4E9;
+  --color-rose-gold: #B76E79;
+  --color-warm-gold: #FFD700;
+  --color-champagne: #F7E7CE;
+  --color-midnight: #1A1A2E;
+  --color-warm-cream: #FFF8F0;
+
+  --font-heading: "Great Vibes", "Cormorant Garamond", serif;
+  --font-body: "Nunito", "Quicksand", sans-serif;
+  --font-handwritten: "Dancing Script", "Sacramento", cursive;
+  --font-bengali: "Hind Siliguri", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-body bg-midnight text-white overflow-x-hidden;
+    cursor: default;
+  }
+
+  h1, h2, h3 {
+    @apply font-heading;
+  }
+
+  .font-bengali {
+    font-family: var(--font-bengali);
+  }
+
+  .font-handwritten {
+    font-family: var(--font-handwritten);
+  }
+}
+
+/* Custom transitions and animations */
+.page-enter {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 800ms ease-out, transform 800ms ease-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.sparkle-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #FFD700 0%, transparent 70%);
+  border-radius: 50%;
+  mix-blend-mode: screen;
+}
+
+/* Hide scrollbar but keep functionality */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
