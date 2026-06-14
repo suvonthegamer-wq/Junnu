@@ -12,14 +12,29 @@ export default function SoundSystem({ isPlaying, setIsPlaying }: SoundSystemProp
   const soundRef = useRef<Howl | null>(null);
 
   useEffect(() => {
-    // Note: The user (Shorob) should provide the actual URL here.
-    // Using a placeholder soft ambient track.
+    // INFO: Upload the MP3 file "AMR8, PRAAGYA - GULAAB (Lyrical Visualiser) PROD. BY SRIJJAN Mashooriya Originals.mp3" into public/music/
+    const musicPath = '/music/AMR8, PRAAGYA - GULAAB (Lyrical Visualiser) PROD. BY SRIJJAN Mashooriya Originals.mp3';
+
     soundRef.current = new Howl({
-      src: ['https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3'], // Placeholder
+      src: [musicPath],
       html5: true,
-      loop: true,
+      loop: false, // Manual loop handling to support starting from 18s
       volume: 0.35,
       autoplay: false,
+      onloaderror: (id, error) => {
+        console.warn("Audio file not found at " + musicPath + ". Please upload the MP3 file into public/music/ to enable background music.", error);
+      },
+      onplay: function() {
+        // Start from 18 seconds on initial play
+        if (this.seek() < 1) {
+          this.seek(18);
+        }
+      },
+      onend: function() {
+        // When end reached, seek back to 18 seconds and resume
+        this.seek(18);
+        this.play();
+      }
     });
 
     return () => {
